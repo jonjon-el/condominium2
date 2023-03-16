@@ -1,0 +1,17 @@
+object DataModule2: TDataModule2
+  OldCreateOrder = False
+  Height = 188
+  HorizontalOffset = 704
+  VerticalOffset = 365
+  Width = 443
+  PPI = 120
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Database = DataModule1.SQLConnector1
+    Transaction = DataModule1.SQLTransaction1
+    Params = <>
+    Macros = <>
+    Left = 225
+    Top = 49
+  end
+end

@@ -1,0 +1,242 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: tform1.caption
+msgid "Form1"
+msgstr ""
+
+#: tform1.groupbox1.caption
+msgid "Description"
+msgstr ""
+
+#: tform_root.button1.caption
+msgid "Next"
+msgstr "Siguiente"
+
+#: tform_root.caption
+msgid "Condominium Manager"
+msgstr "Administrador de condominio"
+
+#: tform_root.radiobutton1.caption
+msgid "Configuration"
+msgstr "Confguración"
+
+#: tform_root.radiobutton2.caption
+msgid "Data"
+msgstr "Datos"
+
+#: tform_root.radiobutton3.caption
+msgid "Programing"
+msgstr "Programador"
+
+#: tform_root.radiobutton4.caption
+msgid "Report"
+msgstr "Reporte"
+
+#: tform_root.radiobutton5.caption
+msgid "Help"
+msgstr "Ayuda"
+
+#: tform_root.radiobutton6.caption
+msgid "Credits"
+msgstr "Acerca de"
+
+#: tform_root.radiogroup1.caption
+msgid "Options"
+msgstr "Opciones"
+
+#: tform_selection.button_back.caption
+msgid "button_back"
+msgstr ""
+
+#: tform_selection.button_next.caption
+msgid "button_next"
+msgstr ""
+
+#: tform_table.button_add.caption
+msgid "Add"
+msgstr ""
+
+#: tform_table.button_back.caption
+msgid "Back"
+msgstr ""
+
+#: tform_table.button_delete.caption
+msgid "Delete"
+msgstr ""
+
+#: tform_table.button_modify.caption
+msgid "Modify"
+msgstr ""
+
+#: tform_table.caption
+msgctxt "tform_table.caption"
+msgid "Data table"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_alicuota
+msgid "Alicuota"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_amount
+msgid "Amount"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_birthday
+msgctxt "unit_datamodule_table.rstring_table_birthday"
+msgid "Birthday"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_contracteddebts
+msgid "Contracted Debts"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_date
+msgid "Date"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_debts
+msgctxt "unit_datamodule_table.rstring_table_debts"
+msgid "Debts"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_firstname
+msgctxt "unit_datamodule_table.rstring_table_firstname"
+msgid "Firstname"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_id
+msgctxt "unit_datamodule_table.rstring_table_id"
+msgid "ID"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_kind
+msgid "Kind"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_lastname
+msgctxt "unit_datamodule_table.rstring_table_lastname"
+msgid "Lastname"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_name
+msgid "Name"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_nic
+msgctxt "unit_datamodule_table.rstring_table_nic"
+msgid "NIC"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_payments
+msgctxt "unit_datamodule_table.rstring_table_payments"
+msgid "Payments"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_persons
+msgctxt "unit_datamodule_table.rstring_table_persons"
+msgid "Persons"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_properties
+msgctxt "unit_datamodule_table.rstring_table_properties"
+msgid "Properties"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_propertyname
+msgid "Property Name"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_propietaries
+msgctxt "unit_datamodule_table.rstring_table_propietaries"
+msgid "Propietaries"
+msgstr ""
+
+#: unit_datamodule_table.rstring_table_reason
+msgid "Reason"
+msgstr ""
+
+#: unit_form_root.rstring_bad
+msgctxt "unit_form_root.rstring_bad"
+msgid "Error"
+msgstr ""
+
+#: unit_form_root.rstring_ok
+msgctxt "unit_form_root.rstring_ok"
+msgid "OK"
+msgstr ""
+
+#: unit_form_selection.rstring_cancel
+msgid "Operation cancelled"
+msgstr ""
+
+#: unit_form_selection.rstring_contracteddebts
+msgid "Contracted debts"
+msgstr ""
+
+#: unit_form_selection.rstring_debts
+msgctxt "unit_form_selection.rstring_debts"
+msgid "Debts"
+msgstr ""
+
+#: unit_form_selection.rstring_ok
+msgid "Operation completed successfully"
+msgstr ""
+
+#: unit_form_selection.rstring_payments
+msgctxt "unit_form_selection.rstring_payments"
+msgid "Payments"
+msgstr ""
+
+#: unit_form_selection.rstring_persons
+msgctxt "unit_form_selection.rstring_persons"
+msgid "Persons"
+msgstr ""
+
+#: unit_form_selection.rstring_properties
+msgctxt "unit_form_selection.rstring_properties"
+msgid "Properties"
+msgstr ""
+
+#: unit_form_selection.rstring_propietaries
+msgctxt "unit_form_selection.rstring_propietaries"
+msgid "Propietaries"
+msgstr ""
+
+#: unit_form_table.rstring_grid_person_birthday
+msgctxt "unit_form_table.rstring_grid_person_birthday"
+msgid "Birthday"
+msgstr ""
+
+#: unit_form_table.rstring_grid_person_firstname
+msgctxt "unit_form_table.rstring_grid_person_firstname"
+msgid "Firstname"
+msgstr ""
+
+#: unit_form_table.rstring_grid_person_id
+msgctxt "unit_form_table.rstring_grid_person_id"
+msgid "ID"
+msgstr ""
+
+#: unit_form_table.rstring_grid_person_lastname
+msgctxt "unit_form_table.rstring_grid_person_lastname"
+msgid "Lastname"
+msgstr ""
+
+#: unit_form_table.rstring_grid_person_nic
+msgctxt "unit_form_table.rstring_grid_person_nic"
+msgid "NIC"
+msgstr ""
+

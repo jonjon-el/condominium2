@@ -1,0 +1,77 @@
+inherited Form_table: TForm_table
+  Left = 454
+  Top = 164
+  Width = 582
+  HorzScrollBar.Page = 415
+  VertScrollBar.Page = 320
+  Caption = 'Data table'
+  ClientWidth = 582
+  OnCreate = FormCreate
+  OnShow = FormShow
+  inherited StatusBar1: TStatusBar
+    Width = 582
+  end
+  inherited GroupBox1: TGroupBox
+    Width = 582
+    ClientWidth = 578
+    inherited Label1: TLabel
+      Width = 558
+    end
+  end
+  inherited Panel1: TPanel
+    Width = 582
+    ClientWidth = 582
+    object Button_back: TButton[0]
+      Left = 12
+      Height = 31
+      Top = 0
+      Width = 94
+      Caption = 'Back'
+      ModalResult = 11
+      TabOrder = 0
+    end
+    object Button_delete: TButton[1]
+      Left = 320
+      Height = 31
+      Top = 0
+      Width = 94
+      Caption = 'Delete'
+      TabOrder = 1
+    end
+    object Button_modify: TButton[2]
+      Left = 216
+      Height = 31
+      Top = 0
+      Width = 94
+      Caption = 'Modify'
+      TabOrder = 2
+    end
+    object Button_add: TButton[3]
+      Left = 112
+      Height = 31
+      Top = 0
+      Width = 94
+      Caption = 'Add'
+      TabOrder = 3
+    end
+  end
+  object StringGrid_table: TStringGrid[3]
+    Left = 0
+    Height = 223
+    Top = 63
+    Width = 582
+    Align = alClient
+    ColCount = 1
+    FixedCols = 0
+    RowCount = 1
+    TabOrder = 3
+  end
+  object Panel_title: TPanel[4]
+    Left = 0
+    Height = 63
+    Top = 0
+    Width = 582
+    Align = alTop
+    TabOrder = 4
+  end
+end

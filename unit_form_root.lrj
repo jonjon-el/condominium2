@@ -1,0 +1,11 @@
+{"version":1,"strings":[
+{"hash":89158786,"name":"tform_root.caption","sourcebytes":[67,111,110,100,111,109,105,110,105,117,109,32,77,97,110,97,103,101,114],"value":"Condominium Manager"},
+{"hash":347380,"name":"tform_root.button1.caption","sourcebytes":[78,101,120,116],"value":"Next"},
+{"hash":108725763,"name":"tform_root.radiogroup1.caption","sourcebytes":[79,112,116,105,111,110,115],"value":"Options"},
+{"hash":116154878,"name":"tform_root.radiobutton1.caption","sourcebytes":[67,111,110,102,105,103,117,114,97,116,105,111,110],"value":"Configuration"},
+{"hash":305313,"name":"tform_root.radiobutton2.caption","sourcebytes":[68,97,116,97],"value":"Data"},
+{"hash":243484439,"name":"tform_root.radiobutton3.caption","sourcebytes":[80,114,111,103,114,97,109,105,110,103],"value":"Programing"},
+{"hash":93091476,"name":"tform_root.radiobutton4.caption","sourcebytes":[82,101,112,111,114,116],"value":"Report"},
+{"hash":322608,"name":"tform_root.radiobutton5.caption","sourcebytes":[72,101,108,112],"value":"Help"},
+{"hash":176926963,"name":"tform_root.radiobutton6.caption","sourcebytes":[67,114,101,100,105,116,115],"value":"Credits"}
+]}

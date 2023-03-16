@@ -1,0 +1,32 @@
+inherited Form_selection: TForm_selection
+  HorzScrollBar.Page = 407
+  OnCreate = FormCreate
+  inherited Panel1: TPanel
+    object button_back: TButton[0]
+      Left = 192
+      Height = 31
+      Top = 0
+      Width = 94
+      Caption = 'button_back'
+      OnClick = button_backClick
+      TabOrder = 0
+    end
+    object button_next: TButton[1]
+      Left = 312
+      Height = 31
+      Top = 0
+      Width = 94
+      Caption = 'button_next'
+      OnClick = button_nextClick
+      TabOrder = 1
+    end
+  end
+  object ListBox1: TListBox[3]
+    Left = 224
+    Height = 100
+    Top = 72
+    Width = 125
+    ItemHeight = 0
+    TabOrder = 3
+  end
+end

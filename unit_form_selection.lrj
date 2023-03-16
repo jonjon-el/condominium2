@@ -1,0 +1,4 @@
+{"version":1,"strings":[
+{"hash":107760683,"name":"tform_selection.button_back.caption","sourcebytes":[98,117,116,116,111,110,95,98,97,99,107],"value":"button_back"},
+{"hash":107841348,"name":"tform_selection.button_next.caption","sourcebytes":[98,117,116,116,111,110,95,110,101,120,116],"value":"button_next"}
+]}

@@ -1,0 +1,7 @@
+{"version":1,"strings":[
+{"hash":58642821,"name":"tform_table.caption","sourcebytes":[68,97,116,97,32,116,97,98,108,101],"value":"Data table"},
+{"hash":296859,"name":"tform_table.button_back.caption","sourcebytes":[66,97,99,107],"value":"Back"},
+{"hash":78392485,"name":"tform_table.button_delete.caption","sourcebytes":[68,101,108,101,116,101],"value":"Delete"},
+{"hash":88453081,"name":"tform_table.button_modify.caption","sourcebytes":[77,111,100,105,102,121],"value":"Modify"},
+{"hash":18340,"name":"tform_table.button_add.caption","sourcebytes":[65,100,100],"value":"Add"}
+]}
