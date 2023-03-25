@@ -19,6 +19,16 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+#: tform_item.labelededit1.editlabel.caption
+msgctxt "tform_item.labelededit1.editlabel.caption"
+msgid "LabeledEdit1"
+msgstr ""
+
+#: tform_item.labelededit1.text
+msgctxt "tform_item.labelededit1.text"
+msgid "LabeledEdit1"
+msgstr ""
+
 #: tform_root.button1.caption
 msgid "Next"
 msgstr ""
@@ -164,6 +174,19 @@ msgstr ""
 
 #: unit_datamodule_table.rstring_table_reason
 msgid "Reason"
+msgstr ""
+
+#: unit_form_base.rstring_bad
+msgid "Bad"
+msgstr ""
+
+#: unit_form_base.rstring_cancel
+msgid "Cancel"
+msgstr ""
+
+#: unit_form_base.rstring_ok
+msgctxt "unit_form_base.rstring_ok"
+msgid "OK"
 msgstr ""
 
 #: unit_form_root.rstring_bad

@@ -52,6 +52,7 @@ inherited Form_table: TForm_table
       Top = 0
       Width = 94
       Caption = 'Add'
+      OnClick = Button_addClick
       TabOrder = 3
     end
   end

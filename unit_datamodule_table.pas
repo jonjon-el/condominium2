@@ -39,8 +39,11 @@ type
     name: string;
     name_field: TStringList;
     dataType_field: TStringList;
-    SQL_text: string;
-    has_ID: boolean;
+    SQL_query: string;
+    SQL_insert: string;
+    SQL_modify: string;
+    SQL_delete: string;
+    field_id: string;
     constructor Create();
     constructor Create(source: TDescription_table); virtual;
     destructor Destroy(); override;
@@ -101,9 +104,9 @@ begin
 
     dataType_field.Assign(source_description_table.dataType_field);
 
-    SQL_text:=source_description_table.SQL_text;
+    SQL_query:=source_description_table.SQL_query;
 
-    has_ID:=source_description_table.has_ID;
+    field_id:=source_description_table.field_id;
   end
   else
   begin
@@ -129,9 +132,15 @@ begin
   dataType_field:=TStringList.Create();
   dataType_field.AddStrings(source.dataType_field);
 
-  SQL_text:=source.SQL_text;
+  SQL_query:=source.SQL_query;
 
-  has_ID:=source.has_ID;
+  SQL_insert:=source.SQL_insert;
+
+  SQL_modify:=source.SQL_modify;
+
+  SQL_delete:=source.SQL_delete;
+
+  field_id:=source.field_id;
 end;
 
 destructor TDescription_table.Destroy;
@@ -176,10 +185,16 @@ begin
   description_table.dataType_field.Add('string');
   description_table.dataType_field.Add('date');
 
-  description_table.SQL_text:='SELECT persons.id, persons.nic, persons.firstname, persons.lastname, persons.birthday' +
+  description_table.SQL_query:='SELECT persons.id, persons.nic, persons.firstname, persons.lastname, persons.birthday' +
     ' FROM persons';
 
-  description_table.has_ID:=True;
+  description_table.SQL_insert:='';
+
+  description_table.SQL_modify:='';
+
+  description_table.SQL_delete:='';
+
+  description_table.field_id:='id';
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -196,10 +211,16 @@ begin
   description_table.dataType_field.Add('string');
   description_table.dataType_field.Add('double');
 
-  description_table.SQL_text:='SELECT properties.id, properties.name, properties.alicuota' +
+  description_table.SQL_query:='SELECT properties.id, properties.name, properties.alicuota' +
     ' FROM properties';
 
-  description_table.has_ID:=True;
+  description_table.SQL_insert:='';
+
+  description_table.SQL_modify:='';
+
+  description_table.SQL_delete:='';
+
+  description_table.field_id:='id';
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -218,12 +239,18 @@ begin
   description_table.dataType_field.Add('string');
   description_table.dataType_field.Add('string');
 
-  description_table.SQL_text:='SELECT persons.nic, persons.firstName, persons.lastName, properties.name' +
+  description_table.SQL_query:='SELECT persons.nic, persons.firstName, persons.lastName, properties.name' +
   ' FROM persons' +
        ' INNER JOIN propietaries ON propietaries.id_owner = persons.id' +
        ' INNER JOIN properties ON propietaries.id_property = properties.id';
 
-  description_table.has_ID:=False;
+  description_table.SQL_insert:='INSERT INTO persons(nic, firstName, lastName, birthDay) VALUES(:nic, :firstName, :lastName, :birthDay)';
+
+  description_table.SQL_modify:='';
+
+  description_table.SQL_delete:='';
+
+  description_table.field_id:='';
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -246,11 +273,17 @@ begin
   description_table.dataType_field.Add('double');
   description_table.dataType_field.Add('date');
 
-  description_table.SQL_text:='SELECT debts.id, persons.nic, persons.firstName, persons.lastName, debts.amount, debts.date' +
+  description_table.SQL_query:='SELECT debts.id, persons.nic, persons.firstName, persons.lastName, debts.amount, debts.date' +
   ' FROM debts' +
   ' INNER JOIN persons ON debts.id_person=persons.id';
 
-  description_table.has_ID:=True;
+  description_table.SQL_insert:='';
+
+  description_table.SQL_modify:='';
+
+  description_table.SQL_delete:='';
+
+  description_table.field_id:='id';
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -275,12 +308,18 @@ begin
   description_table.dataType_field.Add('double');
   description_table.dataType_field.Add('date');
 
-  description_table.SQL_text:='SELECT payments.id, properties.name, persons.nic, persons.firstName, persons.lastName, payments.amount, payments.date, payments.id_bank' +
+  description_table.SQL_query:='SELECT payments.id, properties.name, persons.nic, persons.firstName, persons.lastName, payments.amount, payments.date, payments.id_bank' +
   ' FROM payments' +
     ' INNER JOIN properties ON payments.id_property=properties.id' +
     ' INNER JOIN persons ON payments.id_person=persons.id';
 
-  description_table.has_ID:=True;
+  description_table.SQL_insert:='';
+
+  description_table.SQL_modify:='';
+
+  description_table.SQL_delete:='';
+
+  description_table.field_id:='id';
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -307,20 +346,25 @@ begin
   description_table.dataType_field.Add('string');
   description_table.dataType_field.Add('string');
 
-  description_table.SQL_text:='SELECT debts_contracted.id, persons.nic, persons.firstName, persons.lastName, debts_contracted.amount, debts_contracted.date, debts_contracted.kind, debts_contracted.reason' +
+  description_table.SQL_query:='SELECT debts_contracted.id, persons.nic, persons.firstName, persons.lastName, debts_contracted.amount, debts_contracted.date, debts_contracted.kind, debts_contracted.reason' +
   ' FROM debts_contracted' +
     ' INNER JOIN persons ON debts_contracted.id_person=persons.id';
 
-  description_table.has_ID:=True;
+  description_table.SQL_insert:='';
+
+  description_table.SQL_modify:='';
+
+  description_table.SQL_delete:='';
+
+  description_table.field_id:='id';
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
-
 end;
 
 procedure TDataModule2.Pick_table(role: integer);
 begin
-  SQLQuery1.SQL.Text:=description_table_list[role].SQL_text;
+  SQLQuery1.SQL.Text:=description_table_list[role].SQL_query;
 end;
 
 procedure TDataModule2.Show_table_persons();

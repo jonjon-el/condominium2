@@ -8,6 +8,11 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
   DefaultTranslator, ExtCtrls, StdCtrls;
 
+resourcestring
+  rstring_ok='OK';
+  rstring_cancel='Cancel';
+  rstring_bad='Bad';
+
 type
 
   { TForm1 }
@@ -18,6 +23,7 @@ type
     Panel1: TPanel;
     StatusBar1: TStatusBar;
     procedure Open_NextForm(newForm: TForm); virtual; abstract;
+    procedure Set_Form(); virtual; abstract;
   private
 
   public

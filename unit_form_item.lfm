@@ -1,0 +1,20 @@
+inherited Form_item: TForm_item
+  HorzScrollBar.Page = 80
+  HorzScrollBar.Range = 0
+  VertScrollBar.Page = 80
+  VertScrollBar.Range = 0
+  BorderStyle = bsDialog
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  object ScrollBox1: TScrollBox[3]
+    Left = 0
+    Height = 286
+    Top = 0
+    Width = 600
+    HorzScrollBar.Page = 1
+    VertScrollBar.Page = 1
+    Align = alClient
+    TabOrder = 3
+  end
+end

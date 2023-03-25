@@ -71,7 +71,7 @@ end;
 procedure TForm_selection.button_nextClick(Sender: TObject);
 var
   newForm: TForm_table;
-  item: integer;
+  //item: integer;
 begin
   newForm:=TForm_table.Create(nil);
   newForm.role:=ListBox1.ItemIndex;;

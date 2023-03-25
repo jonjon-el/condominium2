@@ -8,9 +8,9 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
   unit_form_base;
 
-resourcestring
-  rstring_ok = 'OK';
-  rstring_bad = 'Error';
+//resourcestring
+//  rstring_ok = 'OK';
+//  rstring_bad = 'Error';
 
 type
 
@@ -83,11 +83,11 @@ begin
   FreeAndNil(newForm);
   if resultOfForm=mrClose then
   begin
-    StatusBar1.SimpleText:=rstring_ok;
+    StatusBar1.SimpleText:=unit_form_base.rstring_ok;
   end
   else
   begin
-    StatusBar1.SimpleText:=rstring_bad;
+    StatusBar1.SimpleText:=unit_form_base.rstring_bad;
   end;
   Self.Show();
 end;
