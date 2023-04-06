@@ -19,8 +19,8 @@ begin
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
-  Application.CreateForm(TDataModule1, DataModule1);
-  Application.CreateForm(TDataModule2, DataModule2);
+  Application.CreateForm(TDataModule_main, DataModule_main);
+  Application.CreateForm(TDataModule_table, DataModule_table);
   Application.CreateForm(TForm_root, Form_root);
   Application.Run;
 end.

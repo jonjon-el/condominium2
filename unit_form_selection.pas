@@ -23,14 +23,14 @@ type
 
   { TForm_selection }
 
-  TForm_selection = class(TForm1)
+  TForm_selection = class(TForm_base)
     button_back: TButton;
     button_next: TButton;
     ListBox1: TListBox;
     procedure button_backClick(Sender: TObject);
     procedure button_nextClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Open_NextForm(newForm: TForm); override;
+    procedure Open_NextForm();
   private
 
   public
@@ -45,22 +45,13 @@ implementation
 uses
   unit_form_table, unit_datamodule_table;
 
-procedure TForm_selection.Open_NextForm(newForm: TForm);
+procedure TForm_selection.open_NextForm();
 var
-  resultOfForm: TModalResult;
+  next_form: TForm_table;
 begin
-  self.Hide();
-  resultOfForm:=newForm.ShowModal();
-  //FreeAndNil(newForm);
-  if resultOfForm=mrClose then
-  begin
-    StatusBar1.SimpleText:=rstring_ok;
-  end
-  else
-  begin
-    StatusBar1.SimpleText:=rstring_cancel;
-  end;
-  Self.Show();
+  next_form:=TForm_table.Create(self);
+  next_form.index_descriptionTable:=ListBox1.ItemIndex;
+  next_form.ShowModal();
 end;
 
 procedure TForm_selection.button_backClick(Sender: TObject);
@@ -69,14 +60,8 @@ begin
 end;
 
 procedure TForm_selection.button_nextClick(Sender: TObject);
-var
-  newForm: TForm_table;
-  //item: integer;
 begin
-  newForm:=TForm_table.Create(nil);
-  newForm.role:=ListBox1.ItemIndex;;
-  Open_NextForm(newForm);
-  FreeAndNil(newForm);
+  Open_NextForm();
 end;
 
 procedure TForm_selection.FormCreate(Sender: TObject);

@@ -16,9 +16,9 @@ type
 
   TConfig = specialize TDictionary<string, string>;
 
-  { TDataModule1 }
+  { TDataModule_main }
 
-  TDataModule1 = class(TDataModule)
+  TDataModule_main = class(TDataModule)
     SQLConnector1: TSQLConnector;
     SQLScript1: TSQLScript;
     SQLTransaction1: TSQLTransaction;
@@ -38,7 +38,7 @@ type
   end;
 
 var
-  DataModule1: TDataModule1;
+  DataModule_main: TDataModule_main;
 
 implementation
 
@@ -47,9 +47,9 @@ uses
 
 {$R *.lfm}
 
-{ TDataModule1 }
+{ TDataModule_main }
 
-destructor TDataModule1.Destroy;
+destructor TDataModule_main.Destroy;
 begin
   FreeAndNil(ini_section_names);
   FreeAndNil(ini_key_names);
@@ -57,7 +57,7 @@ begin
   inherited;
 end;
 
-procedure TDataModule1.Initialize_ini_names;
+procedure TDataModule_main.Initialize_ini_names;
 begin
   ini_section_names:=TStringList.Create();
   ini_section_names.Add('SQLConnector');
@@ -71,7 +71,7 @@ begin
   ini_key_names.Add('Password');
 end;
 
-procedure TDataModule1.Load_ini;
+procedure TDataModule_main.Load_ini;
 var
   iniFile: IniFiles.TIniFile;
   value: string;
@@ -99,7 +99,7 @@ begin
   FreeAndNil(IniFile);
 end;
 
-procedure TDataModule1.Save_ini;
+procedure TDataModule_main.Save_ini;
 var
   iniFile: IniFiles.TIniFile;
   value: string;
@@ -125,7 +125,7 @@ begin
   FreeAndNil(IniFile);
 end;
 
-procedure TDataModule1.Set_SQLConnector;
+procedure TDataModule_main.Set_SQLConnector;
 var
   value: string;
 begin
@@ -145,7 +145,7 @@ begin
   SQLConnector1.Password:=value;
 end;
 
-procedure TDataModule1.Connect_database(out msg: string);
+procedure TDataModule_main.Connect_database(out msg: string);
 var
   path_folder: string='.';
   databaseCreated: Boolean = False;
@@ -174,17 +174,17 @@ begin
   end;
 end;
 
-procedure TDataModule1.Disconnect_database(out msg: string);
+procedure TDataModule_main.Disconnect_database(out msg: string);
 begin
   try
-    unit_datamodule_main.DataModule1.SQLConnector1.Close();
+    unit_datamodule_main.DataModule_main.SQLConnector1.Close();
   except
     on E: EDatabaseError do
     msg:=E.Message;
   end;
 end;
 
-procedure TDataModule1.Create_database;
+procedure TDataModule_main.Create_database;
 begin
   //SQLConnector1.DatabaseName:=filename_db;
   if not SQLTransaction1.Active then
@@ -205,11 +205,11 @@ begin
 end;
 
 
-{ TDataModule1 }
+{ TDataModule_main }
 
 
 
-{ TDataModule1 }
+{ TDataModule_main }
 
 initialization
 

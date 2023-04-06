@@ -6,28 +6,31 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Grids, ExtCtrls,
-  StdCtrls, unit_form_base;
+  StdCtrls, unit_form_base, unit_datamodule_table;
 
 type
 
   { TForm_table }
 
-  TForm_table = class(TForm1)
+  TForm_table = class(TForm_base)
     Button_add: TButton;
     Button_back: TButton;
     Button_delete: TButton;
     Button_modify: TButton;
     Panel_title: TPanel;
-    StringGrid_table: TStringGrid;
     procedure Button_addClick(Sender: TObject);
+    procedure Button_modifyClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormHide(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure Open_NextForm(newForm: TForm); override;
+    procedure Open_NextForm(index_role: integer);
     procedure Set_Form(); override;
+    procedure Update_UI();
   private
 
   public
-    role: integer;
+    stringGrid_table: TStringGrid;
+    index_descriptionTable: integer;
     procedure Try_Fill_grid();
   end;
 
@@ -37,7 +40,7 @@ var
 implementation
 
 uses
-  unit_datamodule_table, unit_datamodule_main, unit_form_item, DB;
+  unit_datamodule_main, unit_form_item, DB;
 
 {$R *.lfm}
 
@@ -48,76 +51,86 @@ begin
 
 end;
 
-procedure TForm_table.Button_addClick(Sender: TObject);
-var
-  newForm: TForm_item;
-  //item: integer;
+procedure TForm_table.FormHide(Sender: TObject);
 begin
-  newForm:=TForm_item.Create(nil);
-  //newForm.role:=ListBox1.ItemIndex;
-  Open_NextForm(newForm);
-  FreeAndNil(newForm);
+  FreeAndNil(stringGrid_table);
+end;
+
+procedure TForm_table.Button_addClick(Sender: TObject);
+begin
+  Open_NextForm(0);
+end;
+
+procedure TForm_table.Button_modifyClick(Sender: TObject);
+begin
+  Open_NextForm(1);
 end;
 
 procedure TForm_table.FormShow(Sender: TObject);
 begin
   Set_Form();
+  Update_UI();
   Try_Fill_grid();
 end;
 
-procedure TForm_table.Open_NextForm(newForm: TForm);
+procedure TForm_table.open_NextForm(index_role: integer);
 var
-  resultOfForm: TModalResult;
-  form_item: unit_form_item.TForm_item;
+  next_form: TForm_item;
 begin
-  if newForm is TForm_item then
+  next_form:=TForm_item.Create(self);
+
+  //Choose the role of the form item.
+  //0 for adding,
+  //1 for modifying.
+  next_form.index_role:=index_role;
+
+  next_form.index_descriptionTable:=index_descriptionTable;
+
+  if index_role=0 then
   begin
-    form_item:=newForm as TForm_item;
-    form_item.description_table:=unit_datamodule_table.DataModule2.description_table_list[role];
-    self.Hide();
-    resultOfForm:=newForm.ShowModal();
-    if resultOfForm=mrClose then
-    begin
-      StatusBar1.SimpleText:=rstring_ok;
-    end
-    else
-    begin
-      StatusBar1.SimpleText:=rstring_cancel;
-    end;
-    Self.Show();
-  end
-  else
+    next_form.row_contents:=nil;
+  end;
+  if index_role=1 then
   begin
-    StatusBar1.SimpleText:='ERROR';
+    next_form.row_contents:=stringGrid_table.Rows[stringGrid_table.Row];
   end;
 
+  next_form.ShowModal();
 end;
 
 procedure TForm_table.Set_Form;
 begin
-  Self.Caption:=unit_datamodule_table.DataModule2.description_table_list[role].name;
+  Self.Caption:=unit_datamodule_table.DataModule_table.description_table_list[index_descriptionTable].name;
+end;
+
+procedure TForm_table.Update_UI;
+begin
+  //Create stringGrid.
+  stringGrid_table:=TStringGrid.Create(nil);
+  stringGrid_table.Parent:=Self;
+  stringGrid_table.Name:='StringGrid_table';
+  stringGrid_table.Align:=TAlign.alClient;
+  stringGrid_table.FixedCols:=0;
+  stringGrid_table.FixedRows:=1;
+  stringGrid_table.RowCount:=1;
+  stringGrid_table.Clear();
+  stringGrid_table.Show();
 end;
 
 procedure TForm_table.Try_Fill_grid;
 var
-  value: string;
   i: integer;
   index_col: integer;
   row_contents: array of string;
   column: TGridColumn;
-  field_name: string;
-  debug_int: integer;
+  currentIndex_fieldId: integer;
 begin
-  StringGrid_table.Clear();
-
-  unit_datamodule_table.DataModule2.Pick_table(role);
-
+  DataModule_table.Pick_table(index_descriptionTable);
   try
     try
-      unit_datamodule_table.DataModule2.SQLQuery1.Open();
-
+      DataModule_table.SQLQuery1.Open();
       //Setting row title.
-      row_contents:=unit_datamodule_table.DataModule2.description_table_list[role].name_field.ToStringArray();
+      row_contents:=DataModule_table.description_table_list[index_descriptionTable].name_field.ToStringArray();
 
       //adding columns.
       StringGrid_table.Columns.Clear();
@@ -131,43 +144,42 @@ begin
 
       //Adding contents.
       i:=1;//Number of the starting row.
-      while not unit_datamodule_table.DataModule2.SQLQuery1.EOF do
+      while not DataModule_table.SQLQuery1.EOF do
       begin
         index_col:=0;
         while index_col<Length(row_contents) do
         begin
-          row_contents[index_col]:=unit_datamodule_table.DataModule2.SQLQuery1.Fields[index_col].AsString;
+          row_contents[index_col]:=DataModule_table.SQLQuery1.Fields[index_col].AsString;
           inc(index_col);
         end;
         StringGrid_table.InsertRowWithValues(i, row_contents);
         inc(i);
-        unit_datamodule_table.DataModule2.SQLQuery1.Next();
+        DataModule_table.SQLQuery1.Next();
       end;
 
-      field_name:=unit_datamodule_table.DataModule2.description_table_list[role].field_id;
+      currentIndex_fieldId:=DataModule_table.description_table_list[index_descriptionTable].index_field_id;
 
       //If query has column ID then mark as non required and hide it.
-      debug_int:=CompareStr(field_name, 'id');
-      if CompareStr(field_name, 'id')=0 then
+      if currentIndex_fieldId >= 0 then
       begin
-        unit_datamodule_table.DataModule2.SQLQuery1.FieldByName(field_name).Required:=False;
-        StringGrid_table.Columns[0].Visible:=False;
+        DataModule_table.SQLQuery1.Fields[currentIndex_fieldId].Required:=False;
+        StringGrid_table.Columns[currentIndex_fieldId].Visible:=False;
       end;
 
-      unit_datamodule_main.DataModule1.SQLTransaction1.Commit();//Closing transaction.
+      DataModule_main.SQLTransaction1.Commit();//Closing transaction.
 
     except
       on E: EDatabaseError do
       begin
         StatusBar1.SimpleText:=E.Message;
-        if unit_datamodule_table.DataModule2.SQLQuery1.Active then
+        if DataModule_table.SQLQuery1.Active then
         begin
-          unit_datamodule_main.DataModule1.SQLTransaction1.Rollback();
+          DataModule_main.SQLTransaction1.Rollback();
         end;
       end;
     end;
   finally
-    unit_datamodule_table.DataModule2.SQLQuery1.Close();
+    DataModule_table.SQLQuery1.Close();
   end;
 end;
 

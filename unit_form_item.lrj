@@ -1,4 +1,4 @@
 {"version":1,"strings":[
-{"hash":246168657,"name":"tform_item.labelededit1.editlabel.caption","sourcebytes":[76,97,98,101,108,101,100,69,100,105,116,49],"value":"LabeledEdit1"},
-{"hash":246168657,"name":"tform_item.labelededit1.text","sourcebytes":[76,97,98,101,108,101,100,69,100,105,116,49],"value":"LabeledEdit1"}
+{"hash":196513179,"name":"tform_item.button_ok.caption","sourcebytes":[66,117,116,116,111,110,95,111,107],"value":"Button_ok"},
+{"hash":207486780,"name":"tform_item.button_cancel.caption","sourcebytes":[66,117,116,116,111,110,95,99,97,110,99,101,108],"value":"Button_cancel"}
 ]}

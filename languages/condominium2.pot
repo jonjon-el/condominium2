@@ -11,11 +11,12 @@ msgstr ""
 "X-Generator: Poedit 3.2.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: tform1.caption
-msgid "Form1"
+#: tform_base.caption
+msgid "Form_base"
 msgstr ""
 
-#: tform1.groupbox1.caption
+#: tform_base.groupbox1.caption
+msgctxt "tform_base.groupbox1.caption"
 msgid "Description"
 msgstr ""
 
@@ -189,16 +190,6 @@ msgctxt "unit_form_base.rstring_ok"
 msgid "OK"
 msgstr ""
 
-#: unit_form_root.rstring_bad
-msgctxt "unit_form_root.rstring_bad"
-msgid "Error"
-msgstr ""
-
-#: unit_form_root.rstring_ok
-msgctxt "unit_form_root.rstring_ok"
-msgid "OK"
-msgstr ""
-
 #: unit_form_selection.rstring_cancel
 msgid "Operation cancelled"
 msgstr ""
@@ -234,30 +225,5 @@ msgstr ""
 #: unit_form_selection.rstring_propietaries
 msgctxt "unit_form_selection.rstring_propietaries"
 msgid "Propietaries"
-msgstr ""
-
-#: unit_form_table.rstring_grid_person_birthday
-msgctxt "unit_form_table.rstring_grid_person_birthday"
-msgid "Birthday"
-msgstr ""
-
-#: unit_form_table.rstring_grid_person_firstname
-msgctxt "unit_form_table.rstring_grid_person_firstname"
-msgid "Firstname"
-msgstr ""
-
-#: unit_form_table.rstring_grid_person_id
-msgctxt "unit_form_table.rstring_grid_person_id"
-msgid "ID"
-msgstr ""
-
-#: unit_form_table.rstring_grid_person_lastname
-msgctxt "unit_form_table.rstring_grid_person_lastname"
-msgid "Lastname"
-msgstr ""
-
-#: unit_form_table.rstring_grid_person_nic
-msgctxt "unit_form_table.rstring_grid_person_nic"
-msgid "NIC"
 msgstr ""
 

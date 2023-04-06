@@ -26,9 +26,9 @@ inherited Form_root: TForm_root
   end
   object RadioGroup1: TRadioGroup[3]
     Left = 232
-    Height = 148
+    Height = 204
     Top = 88
-    Width = 122
+    Width = 155
     AutoFill = True
     AutoSize = True
     Caption = 'Options'
@@ -39,38 +39,38 @@ inherited Form_root: TForm_root
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 126
-    ClientWidth = 118
+    ClientHeight = 174
+    ClientWidth = 151
     TabOrder = 1
     object RadioButton1: TRadioButton
       Left = 6
-      Height = 21
+      Height = 29
       Top = 0
-      Width = 106
+      Width = 139
       Caption = 'Configuration'
       TabOrder = 0
     end
     object RadioButton2: TRadioButton
       Left = 6
-      Height = 21
-      Top = 21
-      Width = 106
+      Height = 29
+      Top = 29
+      Width = 139
       Caption = 'Data'
       TabOrder = 1
     end
     object RadioButton3: TRadioButton
       Left = 6
-      Height = 21
-      Top = 42
-      Width = 106
+      Height = 29
+      Top = 58
+      Width = 139
       Caption = 'Programing'
       TabOrder = 2
     end
     object RadioButton4: TRadioButton
       Left = 6
-      Height = 21
-      Top = 63
-      Width = 106
+      Height = 29
+      Top = 87
+      Width = 139
       Caption = 'Report'
       Checked = True
       TabOrder = 3
@@ -78,17 +78,17 @@ inherited Form_root: TForm_root
     end
     object RadioButton5: TRadioButton
       Left = 6
-      Height = 21
-      Top = 84
-      Width = 106
+      Height = 29
+      Top = 116
+      Width = 139
       Caption = 'Help'
       TabOrder = 4
     end
     object RadioButton6: TRadioButton
       Left = 6
-      Height = 21
-      Top = 105
-      Width = 106
+      Height = 29
+      Top = 145
+      Width = 139
       Caption = 'Credits'
       TabOrder = 5
     end

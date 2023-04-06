@@ -137,7 +137,7 @@
       <Unit>
         <Filename Value="unit_form_base.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form1"/>
+        <ComponentName Value="Form_base"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
@@ -158,14 +158,14 @@
       <Unit>
         <Filename Value="unit_datamodule_main.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="DataModule1"/>
+        <ComponentName Value="DataModule_main"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
       </Unit>
       <Unit>
         <Filename Value="unit_datamodule_table.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="DataModule2"/>
+        <ComponentName Value="DataModule_table"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
       </Unit>

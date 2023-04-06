@@ -43,17 +43,18 @@ type
     SQL_insert: string;
     SQL_modify: string;
     SQL_delete: string;
-    field_id: string;
+    index_field_id: integer;
     constructor Create();
     constructor Create(source: TDescription_table); virtual;
     destructor Destroy(); override;
+    procedure GetVisibleTitle(out visibleTitle: TStrings);
   end;
 
   TDescription_table_List = specialize TObjectList<TDescription_table>;
 
-  { TDataModule2 }
+  { TDataModule_table }
 
-  TDataModule2 = class(TDataModule)
+  TDataModule_table = class(TDataModule)
     SQLQuery1: TSQLQuery;
   private
 
@@ -62,13 +63,11 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy(); override;
     procedure Initialize();
-    procedure Pick_table(role: integer);
-    //SQL_query_show.
-    procedure Show_table_persons();
+    procedure Pick_table(index_role: integer);
   end;
 
 var
-  DataModule2: TDataModule2;
+  DataModule_table: TDataModule_table;
 
 procedure Copy_stringlist(source: TStringList; out destination: TStringList);
 
@@ -91,7 +90,7 @@ end;
 
 { TDescription_table }
 
-procedure TDescription_table.Assign(source: TPersistent);
+procedure TDescription_table.Assign(Source: TPersistent);
 var
   source_description_table: TDescription_table;
 begin
@@ -106,7 +105,7 @@ begin
 
     SQL_query:=source_description_table.SQL_query;
 
-    field_id:=source_description_table.field_id;
+    index_field_id:=source_description_table.index_field_id;
   end
   else
   begin
@@ -114,7 +113,7 @@ begin
   end;
 end;
 
-{ TDataModule2 }
+{ TDataModule_table }
 
 constructor TDescription_table.Create;
 begin
@@ -140,7 +139,7 @@ begin
 
   SQL_delete:=source.SQL_delete;
 
-  field_id:=source.field_id;
+  index_field_id:=source.index_field_id;
 end;
 
 destructor TDescription_table.Destroy;
@@ -150,19 +149,28 @@ begin
   inherited;
 end;
 
-constructor TDataModule2.Create(AOwner: TComponent);
+procedure TDescription_table.GetVisibleTitle(out visibleTitle: TStrings);
+begin
+  visibleTitle.Assign(self.name_field);
+  if self.index_field_id<>-1 then
+  begin
+    visibleTitle.Delete(self.index_field_id);
+  end;
+end;
+
+constructor TDataModule_table.Create(AOwner: TComponent);
 begin
   inherited;
   Initialize();
 end;
 
-destructor TDataModule2.Destroy;
+destructor TDataModule_table.Destroy;
 begin
   FreeAndNil(description_table_list);
   inherited Destroy;
 end;
 
-procedure TDataModule2.Initialize;
+procedure TDataModule_table.Initialize;
 var
   description_table: TDescription_table;
 begin
@@ -194,7 +202,7 @@ begin
 
   description_table.SQL_delete:='';
 
-  description_table.field_id:='id';
+  description_table.index_field_id:=0;
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -220,7 +228,7 @@ begin
 
   description_table.SQL_delete:='';
 
-  description_table.field_id:='id';
+  description_table.index_field_id:=0;
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -250,7 +258,7 @@ begin
 
   description_table.SQL_delete:='';
 
-  description_table.field_id:='';
+  description_table.index_field_id:=-1;
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -283,7 +291,7 @@ begin
 
   description_table.SQL_delete:='';
 
-  description_table.field_id:='id';
+  description_table.index_field_id:=0;
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -319,7 +327,7 @@ begin
 
   description_table.SQL_delete:='';
 
-  description_table.field_id:='id';
+  description_table.index_field_id:=0;
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
@@ -356,21 +364,15 @@ begin
 
   description_table.SQL_delete:='';
 
-  description_table.field_id:='id';
+  description_table.index_field_id:=0;
 
   description_table_list.Add(TDescription_table.Create(description_table));
   FreeAndNil(description_table);
 end;
 
-procedure TDataModule2.Pick_table(role: integer);
+procedure TDataModule_table.Pick_table(index_role: integer);
 begin
-  SQLQuery1.SQL.Text:=description_table_list[role].SQL_query;
-end;
-
-procedure TDataModule2.Show_table_persons();
-begin
-  SQLQuery1.SQL.Text:='SELECT persons.id, persons.nic, persons.firstname, persons.lastname, persons.birthday' +
-    ' FROM persons';
+  SQLQuery1.SQL.Text:=description_table_list[index_role].SQL_query;
 end;
 
 end.

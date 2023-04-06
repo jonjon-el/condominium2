@@ -3,10 +3,10 @@ inherited Form_table: TForm_table
   Top = 164
   Width = 582
   HorzScrollBar.Page = 415
-  VertScrollBar.Page = 320
   Caption = 'Data table'
   ClientWidth = 582
   OnCreate = FormCreate
+  OnHide = FormHide
   OnShow = FormShow
   inherited StatusBar1: TStatusBar
     Width = 582
@@ -15,7 +15,7 @@ inherited Form_table: TForm_table
     Width = 582
     ClientWidth = 578
     inherited Label1: TLabel
-      Width = 558
+      Width = 554
     end
   end
   inherited Panel1: TPanel
@@ -44,6 +44,7 @@ inherited Form_table: TForm_table
       Top = 0
       Width = 94
       Caption = 'Modify'
+      OnClick = Button_modifyClick
       TabOrder = 2
     end
     object Button_add: TButton[3]
@@ -56,23 +57,12 @@ inherited Form_table: TForm_table
       TabOrder = 3
     end
   end
-  object StringGrid_table: TStringGrid[3]
-    Left = 0
-    Height = 223
-    Top = 63
-    Width = 582
-    Align = alClient
-    ColCount = 1
-    FixedCols = 0
-    RowCount = 1
-    TabOrder = 3
-  end
-  object Panel_title: TPanel[4]
+  object Panel_title: TPanel[3]
     Left = 0
     Height = 63
     Top = 0
     Width = 582
     Align = alTop
-    TabOrder = 4
+    TabOrder = 3
   end
 end

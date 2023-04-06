@@ -16,7 +16,7 @@ type
 
   { TForm_root }
 
-  TForm_root = class(TForm1)
+  TForm_root = class(TForm_base)
     Button1: TButton;
     RadioButton1: TRadioButton;
     RadioButton2: TRadioButton;
@@ -28,7 +28,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure Open_NextForm(newForm: TForm); override;
+    procedure Open_NextForm();
   private
 
   public
@@ -54,14 +54,14 @@ begin
   StatusBar1.SimpleText:=rstring_ok;
 
   //first load configuration from ini.
-  unit_datamodule_main.DataModule1.Initialize_ini_names();
-  unit_datamodule_main.DataModule1.Load_ini();
+  DataModule_main.Initialize_ini_names();
+  DataModule_main.Load_ini();
 
   //then configure SQLconnector and opens connection.
-  unit_datamodule_main.DataModule1.Set_SQLConnector();
+  DataModule_main.Set_SQLConnector();
 
   //then connect to the database.
-  unit_datamodule_main.DataModule1.Connect_database(msg);
+  DataModule_main.Connect_database(msg);
   StatusBar1.SimpleText:=msg;
 end;
 
@@ -69,42 +69,22 @@ procedure TForm_root.FormDestroy(Sender: TObject);
 var
   msg: string;
 begin
-  unit_datamodule_main.DataModule1.Save_ini();
-  unit_datamodule_main.DataModule1.Disconnect_database(msg);
+  DataModule_main.Save_ini();
+  DataModule_main.Disconnect_database(msg);
   StatusBar1.SimpleText:=msg;
 end;
 
-procedure TForm_root.open_NextForm(newForm: TForm);
+procedure TForm_root.open_NextForm();
 var
-  resultOfForm: TModalResult;
+  next_form: TForm_selection;
 begin
-  self.Hide();
-  resultOfForm:=newForm.ShowModal();
-  FreeAndNil(newForm);
-  if resultOfForm=mrClose then
-  begin
-    StatusBar1.SimpleText:=unit_form_base.rstring_ok;
-  end
-  else
-  begin
-    StatusBar1.SimpleText:=unit_form_base.rstring_bad;
-  end;
-  Self.Show();
+  next_form:=TForm_selection.Create(self);
+  next_form.ShowModal();
 end;
 
 procedure TForm_root.Button1Click(Sender: TObject);
-var
-  newForm: TForm1;
 begin
-  if RadioButton2.Checked then
-  begin
-    newForm:=unit_form_selection.TForm_selection.Create(nil);
-  end
-  else
-  begin
-    StatusBar1.SimpleText:=rstring_bad;
-  end;
-  Open_NextForm(newForm);
+  Open_NextForm();
 end;
 
 end.

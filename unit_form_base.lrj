@@ -1,4 +1,4 @@
 {"version":1,"strings":[
-{"hash":5073153,"name":"tform1.caption","sourcebytes":[70,111,114,109,49],"value":"Form1"},
-{"hash":156067838,"name":"tform1.groupbox1.caption","sourcebytes":[68,101,115,99,114,105,112,116,105,111,110],"value":"Description"}
+{"hash":154519029,"name":"tform_base.caption","sourcebytes":[70,111,114,109,95,98,97,115,101],"value":"Form_base"},
+{"hash":156067838,"name":"tform_base.groupbox1.caption","sourcebytes":[68,101,115,99,114,105,112,116,105,111,110],"value":"Description"}
 ]}

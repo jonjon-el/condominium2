@@ -15,14 +15,13 @@ resourcestring
 
 type
 
-  { TForm1 }
+  { TForm_base }
 
-  TForm1 = class(TForm)
+  TForm_base = class(TForm)
     GroupBox1: TGroupBox;
     Label1: TLabel;
     Panel1: TPanel;
     StatusBar1: TStatusBar;
-    procedure Open_NextForm(newForm: TForm); virtual; abstract;
     procedure Set_Form(); virtual; abstract;
   private
 
@@ -31,13 +30,13 @@ type
   end;
 
 var
-  Form1: TForm1;
+  Form_base: TForm_base;
 
 implementation
 
 {$R *.lfm}
 
-{ TForm1 }
+{ TForm_base }
 
 end.
 
