@@ -47,7 +47,6 @@ type
     constructor Create();
     constructor Create(source: TDescription_table); virtual;
     destructor Destroy(); override;
-    procedure GetVisibleTitle(out visibleTitle: TStrings);
   end;
 
   TDescription_table_List = specialize TObjectList<TDescription_table>;
@@ -147,15 +146,6 @@ begin
   FreeAndNil(name_field);
   FreeAndNil(dataType_field);
   inherited;
-end;
-
-procedure TDescription_table.GetVisibleTitle(out visibleTitle: TStrings);
-begin
-  visibleTitle.Assign(self.name_field);
-  if self.index_field_id<>-1 then
-  begin
-    visibleTitle.Delete(self.index_field_id);
-  end;
 end;
 
 constructor TDataModule_table.Create(AOwner: TComponent);

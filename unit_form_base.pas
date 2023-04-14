@@ -22,7 +22,9 @@ type
     Label1: TLabel;
     Panel1: TPanel;
     StatusBar1: TStatusBar;
-    procedure Set_Form(); virtual; abstract;
+    procedure Initialize(params: array of TObject); virtual; abstract;
+    procedure Initialize_UI(); virtual; abstract;
+    procedure Update_UI(); virtual; abstract;
   private
 
   public

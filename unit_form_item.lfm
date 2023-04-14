@@ -28,9 +28,9 @@ inherited Form_item: TForm_item
   end
   object ScrollBox1: TScrollBox[3]
     Left = 0
-    Height = 336
+    Height = 286
     Top = 0
-    Width = 720
+    Width = 600
     HorzScrollBar.Page = 1
     VertScrollBar.Page = 1
     Align = alClient

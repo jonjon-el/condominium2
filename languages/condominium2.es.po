@@ -22,14 +22,12 @@ msgctxt "tform_base.groupbox1.caption"
 msgid "Description"
 msgstr ""
 
-#: tform_item.labelededit1.editlabel.caption
-msgctxt "tform_item.labelededit1.editlabel.caption"
-msgid "LabeledEdit1"
+#: tform_item.button_cancel.caption
+msgid "Button_cancel"
 msgstr ""
 
-#: tform_item.labelededit1.text
-msgctxt "tform_item.labelededit1.text"
-msgid "LabeledEdit1"
+#: tform_item.button_ok.caption
+msgid "Button_ok"
 msgstr ""
 
 #: tform_root.button1.caption

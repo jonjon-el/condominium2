@@ -15,7 +15,7 @@ inherited Form_table: TForm_table
     Width = 582
     ClientWidth = 578
     inherited Label1: TLabel
-      Width = 554
+      Width = 558
     end
   end
   inherited Panel1: TPanel

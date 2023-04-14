@@ -30,6 +30,7 @@ type
     procedure button_backClick(Sender: TObject);
     procedure button_nextClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Initialize_UI(); override;
     procedure Open_NextForm();
   private
 
@@ -43,9 +44,9 @@ var
 implementation
 
 uses
-  unit_form_table, unit_datamodule_table;
+  unit_form_table;
 
-procedure TForm_selection.open_NextForm();
+procedure TForm_selection.Open_NextForm;
 var
   next_form: TForm_table;
 begin
@@ -65,6 +66,11 @@ begin
 end;
 
 procedure TForm_selection.FormCreate(Sender: TObject);
+begin
+  Set_Form();
+end;
+
+procedure TForm_selection.Set_Form;
 begin
   ListBox1.Items.Add(rstring_persons);
   ListBox1.Items.Add(rstring_properties);

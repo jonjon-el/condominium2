@@ -24,13 +24,14 @@ type
     procedure FormHide(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Open_NextForm(index_role: integer);
-    procedure Set_Form(); override;
-    procedure Update_UI();
+    procedure Initialize_UI(); override;
+    procedure Update_UI(); override;
   private
 
   public
     stringGrid_table: TStringGrid;
-    index_descriptionTable: integer;
+    //index_descriptionTable: integer;
+    descriptionTable: unit_datamodule_table.TDescription_table;
     procedure Try_Fill_grid();
   end;
 
@@ -48,7 +49,7 @@ uses
 
 procedure TForm_table.FormCreate(Sender: TObject);
 begin
-
+  descrip
 end;
 
 procedure TForm_table.FormHide(Sender: TObject);
@@ -84,7 +85,8 @@ begin
   //1 for modifying.
   next_form.index_role:=index_role;
 
-  next_form.index_descriptionTable:=index_descriptionTable;
+  //next_form.index_descriptionTable:=index_descriptionTable;
+  next_form.descriptionTable:=descriptionTable;
 
   if index_role=0 then
   begin

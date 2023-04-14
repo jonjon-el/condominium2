@@ -1,57 +1,56 @@
 object Form_base: TForm_base
   Left = 393
-  Height = 576
+  Height = 480
   Top = 152
-  Width = 720
-  HorzScrollBar.Page = 113
-  VertScrollBar.Page = 240
+  Width = 600
+  HorzScrollBar.Page = 94
+  VertScrollBar.Page = 194
   AlphaBlend = True
   AutoScroll = True
   Caption = 'Form_base'
-  ClientHeight = 576
-  ClientWidth = 720
-  DesignTimePPI = 144
+  ClientHeight = 480
+  ClientWidth = 600
+  DesignTimePPI = 120
   ParentFont = True
   Position = poDesktopCenter
   ShowHint = True
   ShowInTaskBar = stAlways
   UseDockManager = True
-  LCLVersion = '2.2.6.0'
+  LCLVersion = '2.2.0.4'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 36
-    Top = 540
-    Width = 720
+    Height = 24
+    Top = 456
+    Width = 600
     Panels = <>
   end
   object GroupBox1: TGroupBox
     Left = 0
-    Height = 157
-    Top = 383
-    Width = 720
+    Height = 131
+    Top = 325
+    Width = 600
     Align = alBottom
     Caption = 'Description'
-    ClientHeight = 127
-    ClientWidth = 716
+    ClientHeight = 109
+    ClientWidth = 596
     TabOrder = 1
     object Label1: TLabel
-      Left = 12
-      Height = 103
-      Top = 12
-      Width = 692
+      Left = 10
+      Height = 89
+      Top = 10
+      Width = 576
       Align = alClient
-      BorderSpacing.Left = 12
-      BorderSpacing.Top = 12
-      BorderSpacing.Right = 12
-      BorderSpacing.Bottom = 12
-      ParentColor = False
+      BorderSpacing.Left = 10
+      BorderSpacing.Top = 10
+      BorderSpacing.Right = 10
+      BorderSpacing.Bottom = 10
     end
   end
   object Panel1: TPanel
     Left = 0
-    Height = 47
-    Top = 336
-    Width = 720
+    Height = 39
+    Top = 286
+    Width = 600
     Align = alBottom
     TabOrder = 2
   end
