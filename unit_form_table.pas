@@ -20,17 +20,22 @@ type
     Panel_title: TPanel;
     procedure Button_addClick(Sender: TObject);
     procedure Button_modifyClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDeactivate(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure Open_NextForm(index_role: integer);
-    procedure Initialize_UI(); override;
-    procedure Update_UI(); override;
-  private
 
+    procedure Open_NextForm(index_role: integer);
+
+
+  private
+    procedure Initialize();
+    procedure Initialize_UI();
+    procedure Update_UI();
   public
+    index_descriptionTable: integer;
     stringGrid_table: TStringGrid;
-    //index_descriptionTable: integer;
     descriptionTable: unit_datamodule_table.TDescription_table;
     procedure Try_Fill_grid();
   end;
@@ -49,7 +54,12 @@ uses
 
 procedure TForm_table.FormCreate(Sender: TObject);
 begin
-  descrip
+
+end;
+
+procedure TForm_table.FormDeactivate(Sender: TObject);
+begin
+  //FreeAndNil(stringGrid_table);
 end;
 
 procedure TForm_table.FormHide(Sender: TObject);
@@ -67,25 +77,33 @@ begin
   Open_NextForm(1);
 end;
 
+procedure TForm_table.FormActivate(Sender: TObject);
+begin
+  //descriptionTable:=unit_datamodule_table.DataModule_table.description_table_list[index_descriptionTable];
+  //Self.Caption:=descriptionTable.name;
+  //Update_UI();
+  //Try_Fill_grid();
+end;
+
 procedure TForm_table.FormShow(Sender: TObject);
 begin
-  Set_Form();
+  descriptionTable:=unit_datamodule_table.DataModule_table.description_table_list[index_descriptionTable];
+  Self.Caption:=descriptionTable.name;
   Update_UI();
   Try_Fill_grid();
 end;
 
-procedure TForm_table.open_NextForm(index_role: integer);
+procedure TForm_table.Open_NextForm(index_role: integer);
 var
   next_form: TForm_item;
+  debug_str: string;
+  row_buffer: TStringList;
+  form_result: TModalResult;
 begin
   next_form:=TForm_item.Create(self);
 
-  //Choose the role of the form item.
-  //0 for adding,
-  //1 for modifying.
-  next_form.index_role:=index_role;
+  row_buffer:=TStringList.Create();
 
-  //next_form.index_descriptionTable:=index_descriptionTable;
   next_form.descriptionTable:=descriptionTable;
 
   if index_role=0 then
@@ -94,15 +112,32 @@ begin
   end;
   if index_role=1 then
   begin
-    next_form.row_contents:=stringGrid_table.Rows[stringGrid_table.Row];
+    row_buffer.Assign(stringGrid_table.Rows[stringGrid_table.Row]);
+    next_form.row_contents:=row_buffer;
+    debug_str:=next_form.row_contents[1];
+  end;
+  Hide();
+  form_result:=next_form.ShowModal();
+  Show();
+  if form_result=mrOK then
+  begin
+    StatusBar1.SimpleText:=rstring_ok;
+  end
+  else
+  begin
+
   end;
 
-  next_form.ShowModal();
 end;
 
-procedure TForm_table.Set_Form;
+procedure TForm_table.Initialize();
 begin
-  Self.Caption:=unit_datamodule_table.DataModule_table.description_table_list[index_descriptionTable].name;
+
+end;
+
+procedure TForm_table.Initialize_UI;
+begin
+
 end;
 
 procedure TForm_table.Update_UI;
@@ -132,7 +167,7 @@ begin
     try
       DataModule_table.SQLQuery1.Open();
       //Setting row title.
-      row_contents:=DataModule_table.description_table_list[index_descriptionTable].name_field.ToStringArray();
+      row_contents:=descriptionTable.name_field.ToStringArray();
 
       //adding columns.
       StringGrid_table.Columns.Clear();
@@ -159,7 +194,7 @@ begin
         DataModule_table.SQLQuery1.Next();
       end;
 
-      currentIndex_fieldId:=DataModule_table.description_table_list[index_descriptionTable].index_field_id;
+      currentIndex_fieldId:=descriptionTable.index_field_id;
 
       //If query has column ID then mark as non required and hide it.
       if currentIndex_fieldId >= 0 then

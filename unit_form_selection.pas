@@ -30,10 +30,10 @@ type
     procedure button_backClick(Sender: TObject);
     procedure button_nextClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Initialize_UI(); override;
+
     procedure Open_NextForm();
   private
-
+    procedure Initialize_UI();
   public
 
   end;
@@ -49,10 +49,20 @@ uses
 procedure TForm_selection.Open_NextForm;
 var
   next_form: TForm_table;
+  form_result: TModalResult;
 begin
   next_form:=TForm_table.Create(self);
   next_form.index_descriptionTable:=ListBox1.ItemIndex;
-  next_form.ShowModal();
+  //Hide();
+  form_result:=next_form.ShowModal();
+  if form_result=mrClose then
+  begin
+    StatusBar1.SimpleText:=rstring_ok;
+  end
+  else
+  begin
+
+  end;
 end;
 
 procedure TForm_selection.button_backClick(Sender: TObject);
@@ -67,10 +77,10 @@ end;
 
 procedure TForm_selection.FormCreate(Sender: TObject);
 begin
-  Set_Form();
+  Initialize_UI();
 end;
 
-procedure TForm_selection.Set_Form;
+procedure TForm_selection.Initialize_UI;
 begin
   ListBox1.Items.Add(rstring_persons);
   ListBox1.Items.Add(rstring_properties);

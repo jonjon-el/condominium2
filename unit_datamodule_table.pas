@@ -7,6 +7,27 @@ interface
 uses
   Classes, SysUtils, SQLDB, Generics.Collections;
 
+const
+  string_table_persons = 'persons';
+  string_table_properties = 'properties';
+  string_table_propietaries = 'propietaries';
+  string_table_debts = 'debts';
+  string_table_payments = 'payments';
+  string_table_contractedDebts = 'contracted_debts';
+
+  string_table_id = 'id';
+  string_table_nic = 'nic';
+  string_table_firstname = 'firstname';
+  string_table_lastname = 'lastname';
+  string_table_birthday = 'birthday';
+  string_table_name = 'name';
+  string_table_alicuota = 'alicuota';
+  string_table_propertyName = 'property_name';
+  string_table_amount = 'amount';
+  string_table_date = 'date';
+  string_table_kind = 'kind';
+  string_table_reason = 'reason';
+
 resourcestring
   rstring_table_persons = 'Persons';
   rstring_table_properties = 'Properties';
@@ -171,24 +192,26 @@ begin
   description_table:=TDescription_table.Create();
   description_table.name:=rstring_table_persons;
 
-  description_table.name_field.Add(rstring_table_id);
-  description_table.name_field.Add(rstring_table_nic);
-  description_table.name_field.Add(rstring_table_firstname);
-  description_table.name_field.Add(rstring_table_lastname);
-  description_table.name_field.Add(rstring_table_birthday);
+  description_table.name_field.Add(string_table_id);
+  description_table.name_field.Add(string_table_nic);
+  description_table.name_field.Add(string_table_firstname);
+  description_table.name_field.Add(string_table_lastname);
+  description_table.name_field.Add(string_table_birthday);
 
   description_table.dataType_field.Add('integer');
   description_table.dataType_field.Add('string');
   description_table.dataType_field.Add('string');
   description_table.dataType_field.Add('string');
-  description_table.dataType_field.Add('date');
+  description_table.dataType_field.Add('integer');
 
   description_table.SQL_query:='SELECT persons.id, persons.nic, persons.firstname, persons.lastname, persons.birthday' +
     ' FROM persons';
 
-  description_table.SQL_insert:='';
+  description_table.SQL_insert:='INSERT INTO persons(nic, firstName, lastName, birthDay) VALUES(:nic, :firstName, :lastName, :birthDay)';
 
-  description_table.SQL_modify:='';
+  description_table.SQL_modify:='UPDATE persons' +
+    ' SET nic=:nic, firstname=:firstName, lastName=:lastName, birthDay=:birthDay' +
+    ' WHERE id=:id';
 
   description_table.SQL_delete:='';
 
@@ -201,9 +224,9 @@ begin
   description_table:=TDescription_table.Create();
   description_table.name:=rstring_table_properties;
 
-  description_table.name_field.Add(rstring_table_id);
-  description_table.name_field.Add(rstring_table_name);
-  description_table.name_field.Add(rstring_table_alicuota);
+  description_table.name_field.Add(string_table_id);
+  description_table.name_field.Add(string_table_name);
+  description_table.name_field.Add(string_table_alicuota);
 
   description_table.dataType_field.Add('integer');
   description_table.dataType_field.Add('string');
@@ -227,10 +250,10 @@ begin
   description_table:=TDescription_table.Create();
   description_table.name:=rstring_table_propietaries;
 
-  description_table.name_field.Add(rstring_table_nic);
-  description_table.name_field.Add(rstring_table_firstname);
-  description_table.name_field.Add(rstring_table_lastname);
-  description_table.name_field.Add(rstring_table_propertyName);
+  description_table.name_field.Add(string_table_nic);
+  description_table.name_field.Add(string_table_firstname);
+  description_table.name_field.Add(string_table_lastname);
+  description_table.name_field.Add(string_table_propertyName);
 
   description_table.dataType_field.Add('string');
   description_table.dataType_field.Add('string');
@@ -242,7 +265,7 @@ begin
        ' INNER JOIN propietaries ON propietaries.id_owner = persons.id' +
        ' INNER JOIN properties ON propietaries.id_property = properties.id';
 
-  description_table.SQL_insert:='INSERT INTO persons(nic, firstName, lastName, birthDay) VALUES(:nic, :firstName, :lastName, :birthDay)';
+  description_table.SQL_insert:='';
 
   description_table.SQL_modify:='';
 
@@ -257,12 +280,12 @@ begin
   description_table:=TDescription_table.Create();
   description_table.name:=rstring_table_debts;
 
-  description_table.name_field.Add(rstring_table_id);
-  description_table.name_field.Add(rstring_table_nic);
-  description_table.name_field.Add(rstring_table_firstname);
-  description_table.name_field.Add(rstring_table_lastname);
-  description_table.name_field.Add(rstring_table_amount);
-  description_table.name_field.Add(rstring_table_date);
+  description_table.name_field.Add(string_table_id);
+  description_table.name_field.Add(string_table_nic);
+  description_table.name_field.Add(string_table_firstname);
+  description_table.name_field.Add(string_table_lastname);
+  description_table.name_field.Add(string_table_amount);
+  description_table.name_field.Add(string_table_date);
 
   description_table.dataType_field.Add('integer');
   description_table.dataType_field.Add('string');
@@ -290,13 +313,13 @@ begin
   description_table:=TDescription_table.Create();
   description_table.name:=rstring_table_payments;
 
-  description_table.name_field.Add(rstring_table_id);
-  description_table.name_field.Add(rstring_table_propertyName);
-  description_table.name_field.Add(rstring_table_nic);
-  description_table.name_field.Add(rstring_table_firstname);
-  description_table.name_field.Add(rstring_table_lastname);
-  description_table.name_field.Add(rstring_table_amount);
-  description_table.name_field.Add(rstring_table_date);
+  description_table.name_field.Add(string_table_id);
+  description_table.name_field.Add(string_table_propertyName);
+  description_table.name_field.Add(string_table_nic);
+  description_table.name_field.Add(string_table_firstname);
+  description_table.name_field.Add(string_table_lastname);
+  description_table.name_field.Add(string_table_amount);
+  description_table.name_field.Add(string_table_date);
 
   description_table.dataType_field.Add('integer');
   description_table.dataType_field.Add('string');
@@ -326,14 +349,14 @@ begin
   description_table:=TDescription_table.Create();
   description_table.name:=rstring_table_contractedDebts;
 
-  description_table.name_field.Add(rstring_table_id);
-  description_table.name_field.Add(rstring_table_nic);
-  description_table.name_field.Add(rstring_table_firstname);
-  description_table.name_field.Add(rstring_table_lastname);
-  description_table.name_field.Add(rstring_table_amount);
-  description_table.name_field.Add(rstring_table_date);
-  description_table.name_field.Add(rstring_table_kind);
-  description_table.name_field.Add(rstring_table_reason);
+  description_table.name_field.Add(string_table_id);
+  description_table.name_field.Add(string_table_nic);
+  description_table.name_field.Add(string_table_firstname);
+  description_table.name_field.Add(string_table_lastname);
+  description_table.name_field.Add(string_table_amount);
+  description_table.name_field.Add(string_table_date);
+  description_table.name_field.Add(string_table_kind);
+  description_table.name_field.Add(string_table_reason);
 
   description_table.dataType_field.Add('integer');
   description_table.dataType_field.Add('string');

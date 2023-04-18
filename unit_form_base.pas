@@ -15,6 +15,8 @@ resourcestring
 
 type
 
+  TObjectArray = array of TObject;
+
   { TForm_base }
 
   TForm_base = class(TForm)
@@ -22,9 +24,6 @@ type
     Label1: TLabel;
     Panel1: TPanel;
     StatusBar1: TStatusBar;
-    procedure Initialize(params: array of TObject); virtual; abstract;
-    procedure Initialize_UI(); virtual; abstract;
-    procedure Update_UI(); virtual; abstract;
   private
 
   public

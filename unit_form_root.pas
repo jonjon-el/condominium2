@@ -77,9 +77,19 @@ end;
 procedure TForm_root.open_NextForm();
 var
   next_form: TForm_selection;
+  form_result: TModalResult;
 begin
   next_form:=TForm_selection.Create(self);
-  next_form.ShowModal();
+  //Hide();
+  form_result:=next_form.ShowModal();
+  if form_result=mrClose then
+  begin
+    StatusBar1.SimpleText:=rstring_ok;
+  end
+  else
+  begin
+
+  end;
 end;
 
 procedure TForm_root.Button1Click(Sender: TObject);

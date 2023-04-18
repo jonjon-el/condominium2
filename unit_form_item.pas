@@ -16,17 +16,18 @@ type
     Button_ok: TButton;
     Button_cancel: TButton;
     ScrollBox1: TScrollBox;
+    procedure Button_cancelClick(Sender: TObject);
     procedure Button_okClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure Initialize(params: array of TObject); override;
+
+    procedure Initialize();
+    procedure Initialize_UI();
   private
 
   public
-    //index_descriptionTable: integer;
     descriptionTable: unit_datamodule_table.TDescription_table;
-    index_role: integer;
     row_contents: TStrings;
     procedure Save();
   end;
@@ -37,16 +38,20 @@ var
 implementation
 
 uses
-  unit_datamodule_main, unit_datamodule_table;
+  unit_datamodule_main, DB;
 
 {$R *.lfm}
 
 { TForm_item }
 
-procedure TForm_item.Initialize(params: array of TObject);
+procedure TForm_item.Initialize();
+begin
+
+end;
+
+procedure TForm_item.Initialize_UI();
 var
   number_columns: integer;
-  //descriptionTable: TDescription_table;
 
   control: TLabeledEdit;
   i: integer;
@@ -57,21 +62,9 @@ var
   border_vertical: integer=30;
   width_calculated: integer;
   border_right: integer=80;
+
+  debug_str: string;
 begin
-  descriptionTable:=unit_datamodule_table.DataModule_table.description_table_list[index_descriptionTable];
-
-  //Choosing the proper SQL statement according to the role.
-  if index_role=0 then
-  begin
-    unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_insert;
-  end;
-  if index_role=1 then
-  begin
-    unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_modify;
-  end;
-
-
-
   number_columns:=descriptionTable.name_field.Count;
 
   i:=0;
@@ -83,6 +76,7 @@ begin
     begin
       control:=TLabeledEdit.Create(ScrollBox1);
       control.Parent:=ScrollBox1;
+      control.Name:=descriptionTable.name_field[i];
 
       //Setting position and size.
       control.top:=top_previous+height_previous+border_vertical;
@@ -99,14 +93,19 @@ begin
       control.EditLabel.Caption:=descriptionTable.name_field[i];
 
       //Choosing whether display empty fields or not according to the role of inserting or modifying.
-      if row_contents=nil then
+      //PENDING. May be unnecesary.
+      if row_contents<>nil then
       begin
-        control.Text:='';
+        //DEBUG: From where is row_contents?
+        debug_str:=row_contents[i];
+        control.Caption:=row_contents[i];
+        //control.Caption:='DEBUG';
       end
       else
       begin
-        control.Text:=row_contents[i];
+        control.Caption:='';
       end;
+
     end;
     inc(i);
   end;
@@ -116,54 +115,75 @@ procedure TForm_item.Save;
 var
   msg: string;
   i: integer;
-  descriptionTable: TDescription_table;
+  debug_str: string;
+  labeledEdit: TLabeledEdit;
 begin
-  descriptionTable:=unit_datamodule_table.DataModule_table.description_table_list[index_descriptionTable];
+  //labeledEdit:=TLabeledEdit.Create(self);
   try
-
-  i:=0;
-  while i<descriptionTable.name_field.Count do
-  begin
-    if descriptionTable.dataType_field[i]='string' then
+    unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_modify;
+    i:=0;
+    while i<row_contents.Count do
     begin
-      unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsString:=;
+      if i<>descriptionTable.index_field_id then
+      begin
+        labeledEdit:=ScrollBox1.FindChildControl(descriptionTable.name_field[i]) as TLabeledEdit;
+        debug_str:=labeledEdit.Text;
+        row_contents[i]:=labeledEdit.Text;
+        //row_contents[i]:=ScrollBox1.FindChildControl(descriptionTable.name_field[i]).Caption;
+
+        if descriptionTable.dataType_field[i]='string' then
+        begin
+          debug_str:=row_contents[i];
+          unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsString:=row_contents[i];
+        end;
+        if descriptionTable.dataType_field[i]='integer' then
+        begin
+          debug_str:=row_contents[i];
+          unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsInteger:=StrToInt(row_contents[i]);
+        end;
+        if descriptionTable.dataType_field[i]='float' then
+        begin
+          debug_str:=row_contents[i];
+          unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsFloat:=StrToFloat(row_contents[i]);
+        end;
+        if descriptionTable.dataType_field[i]='date' then
+        begin
+          debug_str:=row_contents[i];
+          unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsDate:=StrToDate(row_contents[i]);
+        end;
+
+      end
+      else
+      begin
+        debug_str:=row_contents[i];
+        unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsInteger:=StrToInt(row_contents[i]);
+      end;
+
+      inc(i);
     end;
-    if descriptionTable.dataType_field[i]='integer' then
+
+    unit_datamodule_main.DataModule_main.SQLTransaction1.StartTransaction();
+
+    //Opening.
+    debug_str:=unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text;
+    unit_datamodule_table.DataModule_table.SQLQuery1.ExecSQL();
+
+    //Closing.
+
+    unit_datamodule_main.DataModule_main.SQLTransaction1.Commit();
+    ModalResult:=mrOK;
+  except
+    on E: EDatabaseError do
     begin
-
+      unit_datamodule_main.DataModule_main.SQLTransaction1.Rollback();
+      StatusBar1.SimpleText:=E.Message;
     end;
-    if descriptionTable.dataType_field[i]='float' then
-    begin
-
-    end;
-    if descriptionTable.dataType_field[i]='date' then
-    begin
-
-    end;
-
-
   end;
-
-
-  //Start transaction.
-  //unit_datamodule_main.DataModule_main.SQLTransaction1.StartTransaction();
-
-  //Open query.
-  unit_datamodule_table.DataModule_table.SQLQuery1.Open();
-
-
-
-  //Close query.
-  //unit_datamodule_table.DataModule_table.SQLQuery1.Close();
-  finally
-  end;
-
-  //End transaction.
-  unit_datamodule_main.DataModule_main.SQLTransaction1.Commit();
 end;
 
 procedure TForm_item.FormCreate(Sender: TObject);
 begin
+
 end;
 
 procedure TForm_item.Button_okClick(Sender: TObject);
@@ -171,14 +191,29 @@ begin
   Save();
 end;
 
+procedure TForm_item.Button_cancelClick(Sender: TObject);
+begin
+  ModalResult:=mrCancel;
+end;
+
 procedure TForm_item.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(ScrollBox1);
+  FreeAndNil(row_contents);
 end;
 
 procedure TForm_item.FormShow(Sender: TObject);
 begin
-  Set_Form();
+  //Choosing what to do according to the role.
+  if row_contents=nil then
+  begin
+    unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_insert;
+  end
+  else
+  begin
+    unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_modify;
+  end;
+  Initialize_UI();
 end;
 
 end.
