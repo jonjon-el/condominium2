@@ -213,7 +213,8 @@ begin
     ' SET nic=:nic, firstname=:firstName, lastName=:lastName, birthDay=:birthDay' +
     ' WHERE id=:id';
 
-  description_table.SQL_delete:='';
+  description_table.SQL_delete:='DELETE FROM persons' +
+  ' WHERE id=:id';
 
   description_table.index_field_id:=0;
 

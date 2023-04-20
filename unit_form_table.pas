@@ -19,6 +19,7 @@ type
     Button_modify: TButton;
     Panel_title: TPanel;
     procedure Button_addClick(Sender: TObject);
+    procedure Button_deleteClick(Sender: TObject);
     procedure Button_modifyClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -70,6 +71,37 @@ end;
 procedure TForm_table.Button_addClick(Sender: TObject);
 begin
   Open_NextForm(0);
+end;
+
+procedure TForm_table.Button_deleteClick(Sender: TObject);
+var
+  index_field_id: integer;
+  index_row: integer;
+  name_field_id: string;
+  debug_str: string;
+begin
+  unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_delete;
+
+  index_field_id:=descriptionTable.index_field_id;
+  index_row:=stringGrid_table.Row;
+  name_field_id:=descriptionTable.name_field[index_field_id];
+
+  debug_str:=stringGrid_table.Cells[index_field_id, index_row];
+  unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(name_field_id).AsInteger:=StrToInt(stringGrid_table.Cells[index_field_id, index_row]);
+
+  try
+    unit_datamodule_table.DataModule_table.SQLQuery1.ExecSQL();
+
+    unit_datamodule_main.DataModule_main.SQLTransaction1.Commit();
+  except
+    on E: EDatabaseError do
+    begin
+      unit_datamodule_main.DataModule_main.SQLTransaction1.Rollback();
+    end;
+  end;
+  FreeAndNil(stringGrid_table);
+  Update_UI();
+  Try_Fill_grid();
 end;
 
 procedure TForm_table.Button_modifyClick(Sender: TObject);

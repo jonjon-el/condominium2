@@ -38,6 +38,7 @@ inherited Form_table: TForm_table
       Top = 0
       Width = 94
       Caption = 'Delete'
+      OnClick = Button_deleteClick
       TabOrder = 1
     end
     object Button_modify: TButton[2]
