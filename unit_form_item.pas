@@ -27,6 +27,7 @@ type
   private
 
   public
+    index_role: integer;
     descriptionTable: unit_datamodule_table.TDescription_table;
     row_contents: TStrings;
     procedure Save();
@@ -46,7 +47,8 @@ uses
 
 procedure TForm_item.Initialize();
 begin
-
+  //Initialize with invalid index.
+  index_role:=-1;
 end;
 
 procedure TForm_item.Initialize_UI();
@@ -92,25 +94,29 @@ begin
       //Setting label and caption.
       control.EditLabel.Caption:=descriptionTable.name_field[i];
 
+      control.Text:=row_contents[i];
       //Choosing whether display empty fields or not according to the role of inserting or modifying.
       //PENDING. May be unnecesary.
-      if row_contents<>nil then
-      begin
-        //DEBUG: From where is row_contents?
-        debug_str:=row_contents[i];
-        control.Caption:=row_contents[i];
-        //control.Caption:='DEBUG';
-      end
-      else
-      begin
-        control.Caption:='';
-      end;
+      //if row_contents<>nil then
+      //begin
+      //  //DEBUG: From where is row_contents?
+      //  //debug_str:=row_contents[i];
+      //  control.Text:=row_contents[i];
+      //  //control.Caption:='DEBUG';
+      //end
+      //else
+      //begin
+      //  control.Text:='';
+      //end;
 
     end;
     inc(i);
   end;
 end;
 
+//Make sure that every field is feeded to this function.
+//The id field came from the member row_contents directly. Watch it is feeded too.
+//Otherwise it can fail silently.
 procedure TForm_item.Save;
 var
   msg: string;
@@ -119,71 +125,102 @@ var
   labeledEdit: TLabeledEdit;
 begin
   //labeledEdit:=TLabeledEdit.Create(self);
-  try
+  if index_role=0 then
+  begin
+    unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_insert;
+
+    ////Creating empty row_contents.
+    //row_contents:=TStringList.Create();
+    //i:=0;
+    //while i<descriptionTable.name_field.Count do
+    //begin
+    //  row_contents.Add('');
+    //end;
+  end;
+
+  if index_role=1 then
+  begin
     unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_modify;
-    i:=0;
-    while i<row_contents.Count do
+  end;
+
+  i:=0;
+  //Iterating over the controls containing the data to assign to the corresponding field in the query.
+  while i<descriptionTable.name_field.Count do
+  begin
+    //Ignoring the field id.
+    if i<>descriptionTable.index_field_id then
     begin
-      if i<>descriptionTable.index_field_id then
-      begin
-        labeledEdit:=ScrollBox1.FindChildControl(descriptionTable.name_field[i]) as TLabeledEdit;
-        debug_str:=labeledEdit.Text;
-        row_contents[i]:=labeledEdit.Text;
-        //row_contents[i]:=ScrollBox1.FindChildControl(descriptionTable.name_field[i]).Caption;
+      //Treat the control as a TLabeledEdit for using its Text property.
+      labeledEdit:=ScrollBox1.FindChildControl(descriptionTable.name_field[i]) as TLabeledEdit;
+      //debug_str:=labeledEdit.Text;
+      row_contents[i]:=labeledEdit.Text;
+      //row_contents[i]:=ScrollBox1.FindChildControl(descriptionTable.name_field[i]).Caption;
 
-        if descriptionTable.dataType_field[i]='string' then
-        begin
-          debug_str:=row_contents[i];
-          unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsString:=row_contents[i];
-        end;
-        if descriptionTable.dataType_field[i]='integer' then
-        begin
-          debug_str:=row_contents[i];
-          unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsInteger:=StrToInt(row_contents[i]);
-        end;
-        if descriptionTable.dataType_field[i]='float' then
-        begin
-          debug_str:=row_contents[i];
-          unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsFloat:=StrToFloat(row_contents[i]);
-        end;
-        if descriptionTable.dataType_field[i]='date' then
-        begin
-          debug_str:=row_contents[i];
-          unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsDate:=StrToDate(row_contents[i]);
-        end;
-
-      end
-      else
+      //Assigning each data to the corresponding field according to its datatype as specified in descriptionTable.
+      if descriptionTable.dataType_field[i]='string' then
       begin
-        debug_str:=row_contents[i];
+        //debug_str:=row_contents[i];
+        unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsString:=row_contents[i];
+      end;
+      if descriptionTable.dataType_field[i]='integer' then
+      begin
+        //debug_str:=row_contents[i];
         unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsInteger:=StrToInt(row_contents[i]);
       end;
+      if descriptionTable.dataType_field[i]='float' then
+      begin
+        //debug_str:=row_contents[i];
+        unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsFloat:=StrToFloat(row_contents[i]);
+      end;
+      if descriptionTable.dataType_field[i]='date' then
+      begin
+        //debug_str:=row_contents[i];
+        unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsDate:=StrToDate(row_contents[i]);
+      end;
 
-      inc(i);
-    end;
-
-    unit_datamodule_main.DataModule_main.SQLTransaction1.StartTransaction();
-
-    //Opening.
-    debug_str:=unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text;
-    unit_datamodule_table.DataModule_table.SQLQuery1.ExecSQL();
-
-    //Closing.
-
-    unit_datamodule_main.DataModule_main.SQLTransaction1.Commit();
-    ModalResult:=mrOK;
-  except
-    on E: EDatabaseError do
+    end
+    //Assigning the field id.
+    else
     begin
-      unit_datamodule_main.DataModule_main.SQLTransaction1.Rollback();
-      StatusBar1.SimpleText:=E.Message;
+      //Only assign the id if updating. Does not apply if inserting.
+      if index_role=1 then
+      begin
+        //debug_str:=row_contents[i];
+        unit_datamodule_table.DataModule_table.SQLQuery1.Params.ParamByName(descriptionTable.name_field[i]).AsInteger:=StrToInt(row_contents[i]);
+      end;
     end;
+
+    inc(i);
+  end;
+
+  try
+    try
+      unit_datamodule_main.DataModule_main.SQLTransaction1.StartTransaction();
+
+      //Opening.
+      debug_str:=unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text;
+      unit_datamodule_table.DataModule_table.SQLQuery1.ExecSQL();
+
+      //Closing.
+
+      unit_datamodule_main.DataModule_main.SQLTransaction1.Commit();
+      ModalResult:=mrOK;
+    except
+      on E: EDatabaseError do
+      begin
+        unit_datamodule_main.DataModule_main.SQLTransaction1.Rollback();
+        StatusBar1.SimpleText:=E.Message;
+      end;
+    end;
+
+  finally
+    //FreeAndNil(row_contents);
   end;
 end;
 
 procedure TForm_item.FormCreate(Sender: TObject);
 begin
-
+  Initialize();
 end;
 
 procedure TForm_item.Button_okClick(Sender: TObject);
@@ -198,21 +235,25 @@ end;
 
 procedure TForm_item.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(ScrollBox1);
-  FreeAndNil(row_contents);
+  //FreeAndNil(ScrollBox1);
+  //Only free if has a valid pointer. That only happen when role is updating.
+  //if index_role=1 then
+  //begin
+  //  FreeAndNil(row_contents);
+  //end;
 end;
 
 procedure TForm_item.FormShow(Sender: TObject);
 begin
   //Choosing what to do according to the role.
-  if row_contents=nil then
-  begin
-    unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_insert;
-  end
-  else
-  begin
-    unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_modify;
-  end;
+  //if row_contents=nil then
+  //begin
+  //  unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_insert;
+  //end
+  //else
+  //begin
+  //  unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_modify;
+  //end;
   Initialize_UI();
 end;
 

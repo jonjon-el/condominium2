@@ -79,10 +79,6 @@ end;
 
 procedure TForm_table.FormActivate(Sender: TObject);
 begin
-  //descriptionTable:=unit_datamodule_table.DataModule_table.description_table_list[index_descriptionTable];
-  //Self.Caption:=descriptionTable.name;
-  //Update_UI();
-  //Try_Fill_grid();
 end;
 
 procedure TForm_table.FormShow(Sender: TObject);
@@ -99,25 +95,35 @@ var
   debug_str: string;
   row_buffer: TStringList;
   form_result: TModalResult;
+  i: integer;
 begin
   next_form:=TForm_item.Create(self);
 
   row_buffer:=TStringList.Create();
 
   next_form.descriptionTable:=descriptionTable;
-
-  if index_role=0 then
+  next_form.index_role:=index_role;
+  if next_form.index_role=0 then
   begin
-    next_form.row_contents:=nil;
+    next_form.row_contents:=TStringList.Create();
+    i:=0;
+    while i<descriptionTable.name_field.Count do
+    begin
+      row_buffer.Add('');
+      debug_str:=row_buffer[i];
+      inc(i);
+    end;
   end;
-  if index_role=1 then
+  if next_form.index_role=1 then
   begin
     row_buffer.Assign(stringGrid_table.Rows[stringGrid_table.Row]);
-    next_form.row_contents:=row_buffer;
-    debug_str:=next_form.row_contents[1];
+    //debug_str:=next_form.row_contents[1];
   end;
+  next_form.row_contents:=row_buffer;
   Hide();
   form_result:=next_form.ShowModal();
+  FreeAndNil(next_form);
+  FreeAndNil(row_buffer);
   Show();
   if form_result=mrOK then
   begin
@@ -125,7 +131,7 @@ begin
   end
   else
   begin
-
+    StatusBar1.SimpleText:='Something wrong';
   end;
 
 end;

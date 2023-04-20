@@ -53,8 +53,10 @@ var
 begin
   next_form:=TForm_table.Create(self);
   next_form.index_descriptionTable:=ListBox1.ItemIndex;
-  //Hide();
+  Hide();
   form_result:=next_form.ShowModal();
+  Show();
+  FreeAndNil(next_form);
   if form_result=mrClose then
   begin
     StatusBar1.SimpleText:=rstring_ok;

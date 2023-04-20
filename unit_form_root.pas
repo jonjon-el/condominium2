@@ -80,8 +80,10 @@ var
   form_result: TModalResult;
 begin
   next_form:=TForm_selection.Create(self);
-  //Hide();
+  Hide();
   form_result:=next_form.ShowModal();
+  Show();
+  FreeAndNil(next_form);
   if form_result=mrClose then
   begin
     StatusBar1.SimpleText:=rstring_ok;
