@@ -119,23 +119,13 @@ end;
 //Otherwise it can fail silently.
 procedure TForm_item.Save;
 var
-  msg: string;
   i: integer;
   debug_str: string;
   labeledEdit: TLabeledEdit;
 begin
-  //labeledEdit:=TLabeledEdit.Create(self);
   if index_role=0 then
   begin
     unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_insert;
-
-    ////Creating empty row_contents.
-    //row_contents:=TStringList.Create();
-    //i:=0;
-    //while i<descriptionTable.name_field.Count do
-    //begin
-    //  row_contents.Add('');
-    //end;
   end;
 
   if index_role=1 then
@@ -235,25 +225,10 @@ end;
 
 procedure TForm_item.FormDestroy(Sender: TObject);
 begin
-  //FreeAndNil(ScrollBox1);
-  //Only free if has a valid pointer. That only happen when role is updating.
-  //if index_role=1 then
-  //begin
-  //  FreeAndNil(row_contents);
-  //end;
 end;
 
 procedure TForm_item.FormShow(Sender: TObject);
 begin
-  //Choosing what to do according to the role.
-  //if row_contents=nil then
-  //begin
-  //  unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_insert;
-  //end
-  //else
-  //begin
-  //  unit_datamodule_table.DataModule_table.SQLQuery1.SQL.Text:=descriptionTable.SQL_modify;
-  //end;
   Initialize_UI();
 end;
 

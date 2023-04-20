@@ -5,9 +5,6 @@ inherited Form_table: TForm_table
   HorzScrollBar.Page = 415
   Caption = 'Data table'
   ClientWidth = 582
-  OnActivate = FormActivate
-  OnCreate = FormCreate
-  OnDeactivate = FormDeactivate
   OnHide = FormHide
   OnShow = FormShow
   inherited StatusBar1: TStatusBar

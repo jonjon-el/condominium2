@@ -21,9 +21,6 @@ type
     procedure Button_addClick(Sender: TObject);
     procedure Button_deleteClick(Sender: TObject);
     procedure Button_modifyClick(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure FormDeactivate(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -52,16 +49,6 @@ uses
 {$R *.lfm}
 
 { TForm_table }
-
-procedure TForm_table.FormCreate(Sender: TObject);
-begin
-
-end;
-
-procedure TForm_table.FormDeactivate(Sender: TObject);
-begin
-  //FreeAndNil(stringGrid_table);
-end;
 
 procedure TForm_table.FormHide(Sender: TObject);
 begin
@@ -109,10 +96,6 @@ begin
   Open_NextForm(1);
 end;
 
-procedure TForm_table.FormActivate(Sender: TObject);
-begin
-end;
-
 procedure TForm_table.FormShow(Sender: TObject);
 begin
   descriptionTable:=unit_datamodule_table.DataModule_table.description_table_list[index_descriptionTable];
@@ -137,19 +120,16 @@ begin
   next_form.index_role:=index_role;
   if next_form.index_role=0 then
   begin
-    next_form.row_contents:=TStringList.Create();
     i:=0;
     while i<descriptionTable.name_field.Count do
     begin
       row_buffer.Add('');
-      debug_str:=row_buffer[i];
       inc(i);
     end;
   end;
   if next_form.index_role=1 then
   begin
     row_buffer.Assign(stringGrid_table.Rows[stringGrid_table.Row]);
-    //debug_str:=next_form.row_contents[1];
   end;
   next_form.row_contents:=row_buffer;
   Hide();
